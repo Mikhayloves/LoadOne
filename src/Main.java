@@ -5,59 +5,57 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) throws IOException {
-        StringBuilder sb = new StringBuilder("Созданы : \n");
-        sb.append("Директории Games/src/res/savegames/temp\n");
-        sb.append("Директории savegames/temp\n");
-        sb.append("Файлы Main.java, Utils.java\n");
-        sb.append("Директории drawables/vectors/icons\n");
-        sb.append("Файл temp.txt\n");
-        String text = sb.toString();
-        String dirs = "Games/src/res/savegames/temp";
-        String src = "Games/src/main/test/";
-        String fileOne = "Games/src/main/Main.java";
-        String fileTwo = "Games/src/main/Utils.java";
-        String res = "Games/src/res/drawables/vectors/icons";
-        String fileLast = "Games/src/res/savegames/temp/temp.txt";
-        File file = new File(dirs);
-        if (file.mkdirs()) {
-            System.out.println("созданы директории src, res, savegames, temp");
-        }
-        File file1 = new File(src);
-        if (file1.mkdirs()) {
-            System.out.println("созданы директории main, test");
-        }
-        var file2 = new File(fileOne);
-        if (file2.createNewFile()) {
-            System.out.println("Создан файл Main.java");
-        }
-        var file3 = new File(fileTwo);
-        if (file3.createNewFile()) {
-            System.out.println("Создан файл Utils.java");
-        }
+    static StringBuilder stringBuilder = new StringBuilder();
 
-        File file4 = new File(res);
-        if (file4.mkdirs()) {
-            System.out.println("созданы директории drawables, vectors, icons");
+    public static void main(String[] args) throws IOException {
+        List<String> directories = List.of("C:Games/src",
+                "C:Games/res","C:Games/savegames",
+                "C:Games/temp",
+                "C:Games/src/test/","C:Games/src/main",
+                "C:Games/res/drawables/",
+                "C:Games/res/vectors/",
+                "C:Games/res//icons");
+        for (int i = 0; i < directories.size(); i++) {
+            createDirectory(directories.get(i));
         }
-        File file5 = new File(fileLast);
+        createFile("C:Games/src/main/","Main.java");
+        createFile("C:Games/src/main/","Utils.java");
+        createFile("C:Games/temp","temp.txt");
+
         try {
-            if (file5.createNewFile())
-                System.out.println("Файл был создан temp.txt");
+            FileWriter writer = new FileWriter("temp.txt",false);
+            writer.write(String.valueOf(stringBuilder));
+            writer.flush();
+            writer.close();
+        } catch (IOException exx){
+            System.out.println(exx.getMessage());
+        }
+    }
+    static void createDirectory(String path) {
+        File file = new File(path);
+        if (file.mkdir()) {
+            stringBuilder.append("Директория " + path + " создана\n");
+        } else {
+            stringBuilder.append("Директория " + path + " не создана\n");
+        }
+    }
+
+    static void createFile(String path, String fileName) {
+        File file1 = new File(path+fileName);
+        try {
+            if (file1.createNewFile()) {
+                stringBuilder.append("В директории " + path + " файл с именем " + fileName + " создан\n");
+            }else {
+                stringBuilder.append("В директории " + path + " файл с именем " + fileName + " не создан\n");
+            }
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-       try {
-           FileWriter writer = new FileWriter(file5);
-           writer.write(text);
-           writer.flush();
-       } catch (IOException exx){
-           System.out.println(exx.getMessage());
-       }
 
     }
 }

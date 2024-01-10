@@ -1,6 +1,0 @@
-Созданы: 
-Директории Games/src/res/savegames/temp
-Директории savegames/temp
-Файлы Main.java, Utils.java
-Директории drawables/vectors/icons
-Файл temp.txt
