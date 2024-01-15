@@ -19,16 +19,16 @@ public class Main {
                 "C:Games/src/test/","C:Games/src/main",
                 "C:Games/res/drawables/",
                 "C:Games/res/vectors/",
-                "C:Games/res//icons");
+                "C:Games/reicons");
         for (int i = 0; i < directories.size(); i++) {
             createDirectory(directories.get(i));
         }
         createFile("C:Games/src/main/","Main.java");
         createFile("C:Games/src/main/","Utils.java");
-        createFile("C:Games/temp","temp.txt");
+        createFile("C:Games/temp/","temp.txt");
 
         try {
-            FileWriter writer = new FileWriter("temp.txt",false);
+            FileWriter writer = new FileWriter("C:Games/temp/temp.txt",false);
             writer.write(String.valueOf(stringBuilder));
             writer.flush();
             writer.close();
